@@ -14,7 +14,6 @@ export default function LoginView() {
 
   const {
     register,
-    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
