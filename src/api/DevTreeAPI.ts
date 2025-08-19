@@ -1,6 +1,6 @@
 import { isAxiosError } from 'axios';
 import api from '../config/axios';
-import type { User } from '../types';
+import type { ProfileForm, User } from '../types';
 
 export async function getUser() {
   try {
@@ -8,7 +8,31 @@ export async function getUser() {
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw new Error('error.response.data.error');
+      throw new Error(error.response.data.error);
+    }
+  }
+}
+
+export async function updateProfileUser(formData: ProfileForm) {
+  try {
+    const { data } = await api.patch<string>(`/user`, formData);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+  }
+}
+
+export async function uploadUserImage(file: File) {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    const { data } = await api.post('/user/image', formData);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
     }
   }
 }
