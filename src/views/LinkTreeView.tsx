@@ -99,7 +99,11 @@ export default function LinkTreeView() {
             id: 0,
             enabled: false,
           };
-        } else if (link.id > indexToUpdate) {
+        } else if (
+          link.id > indexToUpdate &&
+          indexToUpdate !== 0 &&
+          link.id === 1
+        ) {
           return {
             ...link,
             id: link.id - 1,
@@ -131,7 +135,7 @@ export default function LinkTreeView() {
         ))}
         <button
           onClick={() => {
-            mutate(user);
+            mutate(queryClient.getQueryData(['user'])!);
           }}
           className="bg-cyan-400 p-2 text-lg w-full text-slate-600 rounded-lg font-medium"
         >
